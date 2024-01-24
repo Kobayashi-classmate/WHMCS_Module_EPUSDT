@@ -30,14 +30,14 @@ if ($data['status'] != 2) {
 
 function convert_helper($invoiceid, $amount)
 {
-    $setting = Capsule::table("tblpaymentgateways")->where("gateway", "alipay")->where("setting", "convertto")->first();
+    $setting = Capsule::table("tblpaymentgateways")->where("gateway", "epusdt")->where("setting", "convertto")->first();
     // 系统没多货币 , 直接返回
     if (empty($setting)) {
         return $amount;
     }
 
     // 获取用户ID 和 用户使用的货币ID
-    $data = Capsule::table("tblinvoices")->where("id", $invoiceid)->get()[0];
+    $data = Capsule::table("tblinvoices")->where("id", $invoiceid)->first();
     $userid = $data->userid;
     $currency = getCurrency($userid);
 
